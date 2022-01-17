@@ -1,0 +1,31 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: my-web-deployment-autoscaling
+  labels:
+    app  : my-k8s-application
+    env  : prod
+    owner: LevaSeliverstov
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      project: mossad
+  template:
+    metadata:
+      labels:
+        project: mossad
+    spec:
+      containers:
+        - name : mossad-web
+          image: adv4000/k8sphp:version1
+          ports:
+            - containerPort: 80
+
+---
+apiVersion : autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+etadata:
+  name: my-autoscaling
+  spec:
+    
